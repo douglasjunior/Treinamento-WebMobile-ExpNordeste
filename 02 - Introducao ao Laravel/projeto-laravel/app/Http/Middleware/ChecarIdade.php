@@ -15,8 +15,9 @@ class ChecarIdade
      */
     public function handle($request, Closure $next)
     {
-        if ($request->query('idade') > 200) {
-            return response('A idade deve ser menor que 200.', 400);
+        $idade = $request->query('idade');
+        if ($idade > 200) {
+            return response('A idade não pode ser superior a 200.', 400);
         }
         return $next($request);
     }

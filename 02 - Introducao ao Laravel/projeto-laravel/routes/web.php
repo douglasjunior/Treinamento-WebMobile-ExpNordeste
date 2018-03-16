@@ -17,8 +17,17 @@
 
 // Route::redirect('/welcome', '/bemvindo');
 
-Route::view('/bemvindo', 'bemvindo', ['nome' => 'Douglas']);
+// Route::middleware('checar.idade')->group(function () {
+//     // Route::view('/bemvindo', 'bemvindo', ['nome' => 'Douglas']);
+
+// });
+
+Route::get('/bemvindo/{nome?}', 'BemVindoController@saudacao');
+
+// Route::view('/bemvindo', 'bemvindo', ['nome' => 'Douglas'])->middleware('checar.idade');
 
 // Route::get('/usuario/{id}', function ($id) {
 //     return 'Buscou o usuário ' . $id;
 // });
+
+// Route::resource('/produto', 'ProdutoController');

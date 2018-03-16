@@ -22,17 +22,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return 'Olá Laravel';
 // });
 
-Route::group(['prefix' => 'usuario'], function () {
-    Route::get('/{id?}', function ($id) {
-        return 'Get usuário ' . $id;
-    });
-    Route::post('/', function () {
-        return 'Post usuário';
-    });
-    Route::put('/{id}', function ($id) {
-        return 'Put usuário ' . $id;
-    });
-    Route::delete('/{id}', function ($id) {
-        return 'Delete usuário ' . $id;
-    });
-});
+// Route::group(['prefix' => 'usuario'], function () {
+//     Route::get('/{id?}', function ($id) {
+//         return 'Get usuário ' . $id;
+//     });
+//     Route::post('/', function () {
+//         return 'Post usuário';
+//     });
+//     Route::put('/{id}', function ($id) {
+//         return 'Put usuário ' . $id;
+//     });
+//     Route::delete('/{id}', function ($id) {
+//         return 'Delete usuário ' . $id;
+//     });
+// });
+
+// Route::apiResource('tarefas', 'TarefaController');
+
+// Route::apiResource('/produto', 'ProdutoController');
+
+Route::apiResource('/tarefas', 'TarefaController');
