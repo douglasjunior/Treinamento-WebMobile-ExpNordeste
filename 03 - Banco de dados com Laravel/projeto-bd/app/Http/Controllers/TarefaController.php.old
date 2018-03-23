@@ -1,0 +1,139 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+
+class TarefaController extends Controller
+{
+
+    public function index()
+    {
+        // DB::insert('insert into tarefas (titulo, ativa) values (?, ?)', ['Tarefa de teste', 1]);
+
+        // $afetados = DB::update('update tarefas set titulo = ?, ativa = ? where id = ?',
+        //     ['Alterando a tarefa 2', 1, 2]);
+
+        // $deletados = DB::delete('delete from tarefas where id = ?', [4]);
+
+        // DB::statement('drop table tarefas');
+
+        // $tarefas = DB::select('select * from tarefas where ativa = :ativa', ['ativa' => 1]);
+
+        $tarefas = DB::table('tarefas')->select('id as codigo', 'titulo')->get();
+
+        return view('tarefas', ['tarefas' => $tarefas]);
+    }
+
+    public function teste()
+    {
+        // try {
+        //     DB::beginTransaction();
+        //     DB::delete('delete from tarefas where user_id = ?', [1]);
+        //     DB::delete('delete from usuarios where id = ?', [1]);
+        //     DB::commit();
+        // } catch (Exception $ex) {
+        //     DB::rollBack();
+        // }
+
+        // DB::table('tarefas')->orderBy('id')->chunk(100, function ($tarefas) {
+        //     foreach ($tarefas as $tarefa) {
+        //         //
+        //     }
+        // });
+
+        // $quantidade = DB::table('tarefas')->count();
+
+        // $ultimoId = DB::table('tarefas')->max('id');
+
+        // return DB::table('tabelas')->where('id', 1)->exists();
+
+        // return DB::table('tabelas')->where('id', 1)->doesntExist();
+
+        // $tarefas = DB::table('tarefas')->select('id as codigo', 'titulo')->get();
+
+        // $users = DB::table('users')->distinct()->get();
+
+        // $users = DB::table('users')
+        //     ->select(DB::raw('count(*) as user_count, status'))
+        //     ->where('status', '<>', 1)
+        //     ->groupBy('status')
+        //     ->get();
+
+        // $orders = DB::table('orders')
+        //     ->selectRaw('price * ? as price_with_tax', [1.0825])
+        //     ->get();
+
+        // $orders = DB::table('orders')
+        //     ->whereRaw('price > IF(state = "TX", ?, 100)', [200])
+        //     ->get();
+
+        // $orders = DB::table('orders')
+        //     ->select('department', DB::raw('SUM(price) as total_sales'))
+        //     ->groupBy('department')
+        //     ->havingRaw('SUM(price) > 2500')
+        //     ->get();
+
+        // $orders = DB::table('orders')
+        //     ->orderByRaw('updated_at - created_at DESC')
+        //     ->get();
+
+        // $users = DB::table('users')
+        //     ->join('contacts', 'users.id', '=', 'contacts.user_id')
+        //     ->join('orders', 'users.id', '=', 'orders.user_id')
+        //     ->select('users.*', 'contacts.phone', 'orders.price')
+        //     ->get();
+
+        // $users = DB::table('users')
+        //     ->leftJoin('posts', 'users.id', '=', 'posts.user_id')
+        //     ->get();
+
+        // $users = DB::table('sizes')
+        //     ->crossJoin('colours')
+        //     ->get();
+
+        // DB::table('users')
+        //     ->join('contacts', function ($join) {
+        //         $join->on('users.id', '=', 'contacts.user_id')
+        //             ->orOn('users.id', '=', 5);
+        //     })
+        //     ->get();
+
+        // DB::table('users')
+        //     ->join('contacts', function ($join) {
+        //         $join->on('users.id', '=', 'contacts.user_id')
+        //             ->where('contacts.user_id', '>', 5);
+        //     })
+        //     ->get();
+
+        // DB::table('users')
+        //     ->where('name', '=', 'John')
+        //     ->orWhere(function ($query) {
+        //         $query->where('votes', '>', 100)
+        //             ->where('title', '<>', 'Admin');
+        //     })
+        //     ->get();
+
+        // DB::table('users')->insert(
+        //     ['email' => 'john@example.com', 'votes' => 0]
+        // );
+
+        // DB::table('users')
+        //     ->where('id', 1)
+        //     ->update(['votes' => 1]);
+
+        // DB::table('users')->where('votes', '>', 100)->delete();
+
+        // Schema::create('users', function (Blueprint $table) {
+        //     $table->increments('id');
+        // });
+
+        Schema::table('posts', function (Blueprint $table) {
+            $table->integer('user_id')->unsigned();
+        
+            $table->foreign('user_id')->references('id')->on('users');
+        });
+    }
+
+}
