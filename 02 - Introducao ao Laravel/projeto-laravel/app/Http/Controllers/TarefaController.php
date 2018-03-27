@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TarefaCollection;
+use App\Http\Resources\TarefaResource;
+use App\Tarefa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class TarefaController extends Controller
@@ -31,9 +33,13 @@ class TarefaController extends Controller
     public function index()
     {
         // $tarefas = DB::select('SELECT * FROM tarefas WHERE ativa = ?', [1]);
-        $tarefas = DB::table('tarefas')->where('ativa', 1)->get();
+        // $tarefas = DB::table('tarefas')->where('ativa', 1)->get();
 
-        return response()->json($tarefas, 200);
+        $tarefas = Tarefa::where('ativa', 1)->paginate(5);
+
+        // return response()->json($tarefas, 200);
+
+        return new TarefaCollection($tarefas);
     }
 
     private function validateTarefa(Request $request)
@@ -81,15 +87,24 @@ class TarefaController extends Controller
 
         // DB::insert('INSERT INTO tarefas (titulo, descricao, data) VALUES (:titulo, :descricao, :data)', $tarefa);
 
-        $id = DB::table('tarefas')->insertGetId(
-            [
-                'titulo' => $request->titulo,
-                'descricao' => $request->descricao,
-                'data' => $request->data,
-            ]
-        );
+        // $id = DB::table('tarefas')->insertGetId(
+        //     [
+        //         'titulo' => $request->titulo,
+        //         'descricao' => $request->descricao,
+        //         'data' => $request->data,
+        //     ]
+        // );
 
-        $tarefa = DB::table('tarefas')->where('id', $id)->first();
+        // $tarefa = DB::table('tarefas')->where('id', $id)->first();
+
+        $tarefa = new Tarefa;
+        $tarefa->titulo = $request->titulo;
+        $tarefa->descricao = $request->descricao;
+        $tarefa->data = $request->data;
+
+        $tarefa->save();
+
+        $tarefa = $tarefa->fresh();
 
         return response()->json($tarefa, 201);
     }
@@ -112,13 +127,13 @@ class TarefaController extends Controller
         //     return response()->json($tarefas[0], 200);
         // }
 
-        $tarefa = DB::table('tarefas')->where('id', $id)->where('ativa', 1)->first();
+        // $tarefa = DB::table('tarefas')->where('id', $id)->where('ativa', 1)->first();
 
-        if ($tarefa) {
-            return response()->json($tarefa, 200);
-        }
+        $tarefa = Tarefa::where('ativa', 1)->findOrFail($id);
 
-        return response('Tarefa não encontrada', 404);
+        // return response()->json($tarefa, 200);
+
+        return new TarefaResource($tarefa);
     }
 
     public function update(Request $request, $id)
@@ -162,19 +177,29 @@ class TarefaController extends Controller
         //     return response()->json($tarefas[0], 200);
         // }
 
-        $queryTarefa = DB::table('tarefas')->where('id', $id);
+        // $queryTarefa = DB::table('tarefas')->where('id', $id);
 
-        if ($queryTarefa->doesntExist()) {
-            return response('Tarefa não encontrada', 404);
-        }
+        // if ($queryTarefa->doesntExist()) {
+        //     return response('Tarefa não encontrada', 404);
+        // }
 
-        DB::table('tarefas')->where('id', $id)->update([
-            'titulo' => $request->titulo,
-            'descricao' => $request->descricao,
-            'ativa' => $request->ativa,
-        ]);
+        // DB::table('tarefas')->where('id', $id)->update([
+        //     'titulo' => $request->titulo,
+        //     'descricao' => $request->descricao,
+        //     'ativa' => $request->ativa,
+        // ]);
 
-        return response()->json($queryTarefa->first(), 200);
+        // return response()->json($queryTarefa->first(), 200);
+
+        $tarefa = Tarefa::findOrFail($id);
+        $tarefa->titulo = $request->titulo;
+        $tarefa->descricao = $request->descricao;
+        $tarefa->ativa = $request->ativa;
+        $tarefa->data = $request->data;
+
+        $tarefa->save();
+
+        return response()->json($tarefa, 200);
     }
 
     public function destroy($id)
@@ -196,12 +221,24 @@ class TarefaController extends Controller
 
         // $deletadas = DB::delete('DELETE FROM tarefas WHERE id = ?', [$id]);
 
-        $deletadas = DB::table('tarefas')->where('id', $id)->delete();
+        // $deletadas = DB::table('tarefas')->where('id', $id)->delete();
+
+        $deletadas = Tarefa::destroy($id);
 
         if ($deletadas > 0) {
             return response(null, 204);
         }
 
         return response('Tarefa não encontrada', 404);
+    }
+
+    public function count()
+    {
+        $ativas = Tarefa::where('ativa', 1)->count();
+        $inativas = Tarefa::where('ativa', 0)->count();
+
+        $json = ['ativas' => $ativas, 'inativas' => $inativas];
+
+        return response()->json($json, 200);
     }
 }

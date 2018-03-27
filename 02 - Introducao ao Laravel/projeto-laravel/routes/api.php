@@ -41,4 +41,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Route::apiResource('/produto', 'ProdutoController');
 
+Route::get('/tarefas/count', 'TarefaController@count');
 Route::apiResource('/tarefas', 'TarefaController');
