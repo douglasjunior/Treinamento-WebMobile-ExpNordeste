@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 |
  */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 // Route::match(['get', 'post'], '/ola', function () {
 //     $teste->ola();
@@ -41,5 +41,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Route::apiResource('/produto', 'ProdutoController');
 
-Route::get('/tarefas/count', 'TarefaController@count');
-Route::apiResource('/tarefas', 'TarefaController');
+Route::group(['middleware' => 'jwt.auth'], function () {
+    Route::get('/tarefas/count', 'TarefaController@count');
+    Route::apiResource('/tarefas', 'TarefaController');
+});
+
+Route::group(['prefix' => 'usuarios'], function () {
+
+    Route::post('/', 'UsuarioController@store');
+    Route::post('/login', 'UsuarioController@login');
+
+    Route::group(['middleware' => 'jwt.auth'], function () {
+        Route::get('/', 'UsuarioController@user');
+        Route::post('/logout', 'UsuarioController@logout');
+    });
+});

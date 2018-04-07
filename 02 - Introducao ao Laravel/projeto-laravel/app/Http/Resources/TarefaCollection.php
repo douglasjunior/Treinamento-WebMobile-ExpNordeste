@@ -13,7 +13,7 @@ class TarefaCollection extends ResourceCollection
     {
         return [
             'resultado' => TarefaResource::collection($this->collection),
-            'metatados' => [
+            'metadados' => [
                 'data_local' => new Carbon(),
                 'quantidade' => $this->collection->count(),
             ],

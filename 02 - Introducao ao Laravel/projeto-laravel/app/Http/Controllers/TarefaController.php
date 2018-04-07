@@ -35,9 +35,11 @@ class TarefaController extends Controller
         // $tarefas = DB::select('SELECT * FROM tarefas WHERE ativa = ?', [1]);
         // $tarefas = DB::table('tarefas')->where('ativa', 1)->get();
 
-        $tarefas = Tarefa::where('ativa', 1)->paginate(5);
+        // $tarefas = Tarefa::where('ativa', 1)->paginate(5);
 
         // return response()->json($tarefas, 200);
+
+        $tarefas = auth()->user()->tarefas()->paginate(5);
 
         return new TarefaCollection($tarefas);
     }
@@ -101,6 +103,7 @@ class TarefaController extends Controller
         $tarefa->titulo = $request->titulo;
         $tarefa->descricao = $request->descricao;
         $tarefa->data = $request->data;
+        $tarefa->usuario_email = auth()->user()->email;
 
         $tarefa->save();
 
@@ -129,7 +132,9 @@ class TarefaController extends Controller
 
         // $tarefa = DB::table('tarefas')->where('id', $id)->where('ativa', 1)->first();
 
-        $tarefa = Tarefa::where('ativa', 1)->findOrFail($id);
+        $tarefa = Tarefa::where('ativa', 1)
+            ->where('usuario_email', auth()->user()->email)
+            ->findOrFail($id);
 
         // return response()->json($tarefa, 200);
 
@@ -191,7 +196,8 @@ class TarefaController extends Controller
 
         // return response()->json($queryTarefa->first(), 200);
 
-        $tarefa = Tarefa::findOrFail($id);
+        $tarefa = Tarefa::where('usuario_email', auth()->user()->email)
+            ->findOrFail($id);
         $tarefa->titulo = $request->titulo;
         $tarefa->descricao = $request->descricao;
         $tarefa->ativa = $request->ativa;
@@ -223,7 +229,9 @@ class TarefaController extends Controller
 
         // $deletadas = DB::table('tarefas')->where('id', $id)->delete();
 
-        $deletadas = Tarefa::destroy($id);
+        $deletadas = Tarefa::where('usuario_email', auth()->user()->email)
+            ->where('id', $id)
+            ->delete();
 
         if ($deletadas > 0) {
             return response(null, 204);
@@ -234,8 +242,10 @@ class TarefaController extends Controller
 
     public function count()
     {
-        $ativas = Tarefa::where('ativa', 1)->count();
-        $inativas = Tarefa::where('ativa', 0)->count();
+        $query = Tarefa::where('usuario_email', auth()->user()->email);
+
+        $ativas = $query->where('ativa', 1)->count();
+        $inativas = $query->where('ativa', 0)->count();
 
         $json = ['ativas' => $ativas, 'inativas' => $inativas];
 
