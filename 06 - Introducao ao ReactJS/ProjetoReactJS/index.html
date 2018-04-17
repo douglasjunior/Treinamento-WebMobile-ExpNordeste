@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script crossorigin src="https://unpkg.com/react@16.2.0/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16.2.0/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/create-react-class@15.6.2/create-react-class.js"></script>
+
+    <title>Projeto com React</title>
+
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+    <script>
+        const CounterComponent = createReactClass({
+            getInitialState: function () {
+                return {
+                    count: 0,
+                };
+            },
+            componentDidMount: function () {
+                const self = this;
+                setInterval(function () {
+                    self.setState({ count: self.state.count + 1 })
+                }, this.props.tempo);
+            },
+            render: function () {
+                return React.createElement('p', null, this.state.count);
+            }
+        });
+
+        function BemvindoComponent(props) {
+            return React.createElement('h1', {
+                style: {
+                    backgroundColor: '#f00'
+                }
+            }, 'Olá, ' + props.nome);
+        }
+
+        const bemvindoDouglas = React.createElement(BemvindoComponent, {
+            nome: 'Douglas'
+        }, null);
+
+        const bemvindoJoao = React.createElement(BemvindoComponent, {
+            nome: 'João'
+        }, null);
+
+        const meuContador = React.createElement(CounterComponent, {
+            tempo: 1000
+        }, null);
+
+        const meuContador2 = React.createElement(CounterComponent, {
+            tempo: 700
+        }, null);
+
+        const MyDiv = React.createElement('div', null, [
+            'Olá React JS',
+            bemvindoDouglas,
+            bemvindoJoao,
+            meuContador,
+            meuContador2
+        ]);
+
+        ReactDOM.render(MyDiv, document.getElementById('root'));
+    </script>
+
+</body>
+
+</html>
