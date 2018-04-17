@@ -64,8 +64,7 @@ class TarefaController extends Controller
     public function show($id)
     {
 
-        $tarefa = Tarefa::where('ativa', 1)
-            ->where('usuario_email', auth()->user()->email)
+        $tarefa = Tarefa::where('usuario_email', auth()->user()->email)
             ->findOrFail($id);
 
         return new TarefaResource($tarefa);
