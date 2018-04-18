@@ -4,7 +4,7 @@ class HomePage extends Component {
 
     render() {
         return (
-            <div>
+            <div className="paginaAbsoluta">
                 <h1>Bem vindo!</h1>
             </div>
         )

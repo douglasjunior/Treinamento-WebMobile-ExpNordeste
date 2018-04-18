@@ -8,7 +8,7 @@ class TarefasPage extends Component {
             tarefaId = this.props.match.params.tarefaId;
         }
         return (
-            <div>
+            <div className="paginaAbsoluta">
                 <h1>Listagem de tarefas!</h1>
                 <h2>{tarefaId}</h2>
             </div>
