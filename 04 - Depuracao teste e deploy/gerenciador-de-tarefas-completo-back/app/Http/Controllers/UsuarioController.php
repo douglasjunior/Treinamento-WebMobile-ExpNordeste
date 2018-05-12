@@ -52,7 +52,7 @@ class UsuarioController extends Controller
 
         $usuario = Usuario::where('email', $request->email)->first();
 
-        if (!Hash::check($request->senha, $usuario->senha)) {
+        if (!$usuario || !Hash::check($request->senha, $usuario->senha)) {
             return response('Credenciais inválidas', 401);
         }
 

@@ -22,7 +22,9 @@ class TarefaController extends Controller
             $query = $query->where('titulo', 'like', "%$titulo%");
         }
 
-        $tarefas = $query->paginate(5);
+        $limite = $request->query('limite');
+
+        $tarefas = $query->paginate($limite);
 
         return new TarefaCollection($tarefas);
     }

@@ -12,3 +12,7 @@
  */
 
 Route::get('/bemvindo/{nome?}', 'BemVindoController@saudacao');
+
+Route::get( '/{any}', function () {
+    return File::get(storage_path('app/index.html'));
+})->where('any', '.*');
