@@ -1,0 +1,12 @@
+.side-menu-logo {
+    height: 60px;
+    line-height: 28px;
+    background: rgba(255, 255, 255, .2);
+    margin: 16px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.side-menu-logo h1 {
+    color: white !important;
+}

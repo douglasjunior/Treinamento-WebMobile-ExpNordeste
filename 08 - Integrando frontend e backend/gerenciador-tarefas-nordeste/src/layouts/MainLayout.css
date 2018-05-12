@@ -1,0 +1,18 @@
+.mainLayoutHeader {
+    padding-left: 24px;
+}
+
+.mainLayoutHeader h2 {
+    color: white;
+    display: inline;
+}
+
+.mainLayoutHeader i {
+    color: white;
+    margin-right: 16px;
+    font-size: 24px;
+}
+
+.mainLayout {
+    height: 100%;
+}

@@ -1,0 +1,13 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+#root {
+    height: 100%;
+}
+
+.ant-spin-dot-spin {
+    animation: antRotate 0.001s infinite linear !important;
+}

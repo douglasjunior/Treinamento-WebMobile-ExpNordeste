@@ -1,0 +1,28 @@
+.cadastro-form {
+    max-width: 600px;
+    margin: 16px auto;
+    background-color: rgb(240, 240, 240);
+    padding: 20px;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #dadada;
+}
+
+.cadastro-form h2 {
+    color: rgb(0, 123, 160);
+    text-align: center;
+}
+
+.cadastro-button {
+    margin-left: 16px;
+}
+
+.ant-form-item-label {
+    line-height: inherit;
+}
+
+.ant-input-group,
+.ant-input-group-compact {
+    margin-top: 3px;
+}

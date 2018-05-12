@@ -1,0 +1,13 @@
+.tarefasPageFiltro {
+    margin-bottom: 16px;
+}
+
+.tarefasPageFiltro-adicionar {
+    display: inline-block;
+    margin-right: 24px;
+}
+
+.tarefasPageFiltro-busca {
+    max-width: 400px;
+    display: inline-block;
+}

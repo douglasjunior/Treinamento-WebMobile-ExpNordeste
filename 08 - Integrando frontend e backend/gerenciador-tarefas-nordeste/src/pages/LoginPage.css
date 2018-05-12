@@ -1,0 +1,23 @@
+.login-form {
+    max-width: 400px;
+    margin: 16px auto;
+    background-color: rgb(240, 240, 240);
+    padding: 20px;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #dadada;
+}
+
+.login-form h2 {
+    color: rgb(0, 123, 160);
+    text-align: center;
+}
+
+.login-form footer {
+    text-align: center;
+}
+
+.login-button {
+    width: 100%;
+}

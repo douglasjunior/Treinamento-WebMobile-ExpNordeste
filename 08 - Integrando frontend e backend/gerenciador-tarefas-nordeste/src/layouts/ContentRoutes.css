@@ -1,0 +1,9 @@
+.contentRoutes {
+    margin: 24px 16px 0px;
+}
+
+.contentRoutesContainer {
+    padding: 24px;
+    background-color: white;
+    min-height: 360px;
+}
