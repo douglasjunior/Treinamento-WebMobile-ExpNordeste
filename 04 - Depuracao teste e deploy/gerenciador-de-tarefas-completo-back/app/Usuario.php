@@ -12,6 +12,7 @@ class Usuario extends User
 
     protected $table = 'usuarios';
 
+    protected $dateFormat = 'Y-m-d H:i:s.u';
     protected $primaryKey = 'email';
     protected $keyType = 'string';
     public $incrementing = false;
@@ -30,9 +31,9 @@ class Usuario extends User
         return $this->senha;
     }
 
-    public function tarefas()
-    {
-        return $this->hasMany(Tarefa::class, 'usuario_email');
-    }
+    // public function tarefas()
+    // {
+    //     return $this->hasMany(Tarefa::class, 'usuario_email');
+    // }
 
 }
