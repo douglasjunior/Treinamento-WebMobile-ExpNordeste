@@ -12,7 +12,7 @@ class Usuario extends User
 
     protected $table = 'usuarios';
 
-    protected $dateFormat = 'Y-m-d H:i:s.u';
+    // protected $dateFormat = 'Y-m-d H:i:s.u';
     protected $primaryKey = 'email';
     protected $keyType = 'string';
     public $incrementing = false;

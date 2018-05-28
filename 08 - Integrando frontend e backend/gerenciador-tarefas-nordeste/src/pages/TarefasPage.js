@@ -177,10 +177,10 @@ export default class TarefasPage extends Component {
 
         let request;
         if (ativar) {
-            // put /tarefas/{tarefaId}/ativar
+            // put /tarefas/{tarefaId}/ativa
             request = axios.put(`/tarefas/${tarefa.id}/ativa`);
         } else {
-            // delete /tarefas/{tarefaId}/ativar
+            // delete /tarefas/{tarefaId}/ativa
             request = axios.delete(`/tarefas/${tarefa.id}/ativa`);
         }
         request.then(response => {

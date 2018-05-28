@@ -8,7 +8,7 @@ class Tarefa extends Model
 {
     protected $table = 'tarefas';
 
-    protected $dateFormat = 'Y-m-d H:i:s.O';
+    // protected $dateFormat = 'Y-m-d H:i:s.O';
     protected $primaryKey = 'id';
     protected $keyType = 'integer';
     public $incrementing = true;
