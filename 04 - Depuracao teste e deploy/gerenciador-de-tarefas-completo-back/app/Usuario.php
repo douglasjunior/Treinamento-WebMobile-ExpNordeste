@@ -31,9 +31,9 @@ class Usuario extends User
         return $this->senha;
     }
 
-    // public function tarefas()
-    // {
-    //     return $this->hasMany(Tarefa::class, 'usuario_email');
-    // }
+    public function tarefas()
+    {
+        return $this->hasMany(Tarefa::class, 'usuario_email');
+    }
 
 }
