@@ -22,6 +22,8 @@ class TarefaController extends Controller
             $query = $query->where('titulo', 'like', "%$titulo%");
         }
 
+        $query = $query->orderBy('id', 'desc');
+
         $limite = $request->query('limite');
 
         $tarefas = $query->paginate($limite);
