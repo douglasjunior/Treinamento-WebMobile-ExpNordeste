@@ -78,8 +78,8 @@ return [
         'ibmi' => [
             'driver' => 'db2_ibmi_odbc',
             // or 'db2_ibmi_ibm' / 'db2_zos_odbc' / 'db2_expressc_odbc
-            'driverName' => '{IBM DATA SERVER DRIVER for ODBC - D:/ferramentas/ibm/clidriver32}',
-            // or '{iSeries Access ODBC Driver}' '{IBM i Access ODBC Driver 64-bit}'
+            'driverName' => env('DB_DRIVER_NAME', '{iSeries Access ODBC Driver}'),
+            // {IBM DATA SERVER DRIVER for ODBC - D:/ferramentas/ibm/clidriver32} or '{iSeries Access ODBC Driver}' '{IBM i Access ODBC Driver 64-bit}'
             'host' => env('DB_HOST', '127.0.0.1'),
             'username' => env('DB_USERNAME', ''),
             'password' => env('DB_PASSWORD', ''),
@@ -87,7 +87,7 @@ return [
             'prefix' => '',
             'schema' => env('DB_SCHEMA', ''),
             'port' => env('DB_PORT', '50000'),
-            'date_format' => 'Y-m-d H:i:s.u',
+            'date_format' => env('DB_DATE_FORMAT', 'Y-m-d H:i:s.u'),
             'odbc_keywords' => [
                 'SIGNON' => 3,
                 'SSL' => 0,

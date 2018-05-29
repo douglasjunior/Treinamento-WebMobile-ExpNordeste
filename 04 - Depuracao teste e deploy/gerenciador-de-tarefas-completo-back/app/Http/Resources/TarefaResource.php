@@ -14,7 +14,7 @@ class TarefaResource extends JsonResource
             'titulo' => $this->titulo,
             'descricao' => $this->descricao,
             'data' => $this->data,
-            'ativa' => $this->ativa === 1 ? true : false,
+            'ativa' => $this->ativa == 1 ? true : false,
         ];
     }
 }

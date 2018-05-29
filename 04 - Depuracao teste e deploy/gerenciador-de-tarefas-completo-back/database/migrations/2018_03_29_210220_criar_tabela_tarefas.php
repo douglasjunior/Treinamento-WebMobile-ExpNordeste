@@ -16,9 +16,11 @@ class CriarTabelaTarefas extends Migration
         Schema::create('tarefas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('titulo', 50);
-            $table->text('descricao');
+            $table->text('descricao')->nullable();
+            $table->boolean('ativa')->default(true);
             $table->date('data');
-            $table->boolean('ativa');
+            $table->string('usuario_email');
+            $table->foreign('usuario_email')->references('email')->on('usuarios');
             // $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CriarTabelaTarefas extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tarefas');
+        Schema::drop('tarefas');
     }
 }
