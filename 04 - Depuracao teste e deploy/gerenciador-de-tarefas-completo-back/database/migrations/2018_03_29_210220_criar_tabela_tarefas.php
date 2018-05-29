@@ -18,7 +18,7 @@ class CriarTabelaTarefas extends Migration
             $table->string('titulo', 50);
             $table->text('descricao')->nullable();
             $table->boolean('ativa')->default(true);
-            $table->date('data');
+            $table->timestamp('data');
             $table->string('usuario_email');
             $table->foreign('usuario_email')->references('email')->on('usuarios');
             // $table->timestamps();
