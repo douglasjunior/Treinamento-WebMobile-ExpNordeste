@@ -2,15 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
 use App\Rules\CPF;
 use App\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Config;
+use App\Http\Middleware\ConfigAutenticacao;
 use JWTAuth;
 
 class UsuarioController extends Controller
 {
+
+    private function cpfOuCnpj($valor)
+    {
+        $regex = '/^(\d{11}|\d{14})$/';
+
+        preg_match($regex, $valor, $matches, PREG_OFFSET_CAPTURE, 0);
+
+        return $matches;
+    }
 
     public function store(Request $request)
     {
@@ -41,8 +53,12 @@ class UsuarioController extends Controller
 
     public function login(Request $request)
     {
+        // $validador = Validator::make($request->all(), [
+        //     'email' => 'required|email',
+        //     'senha' => 'required',
+        // ]);
         $validador = Validator::make($request->all(), [
-            'email' => 'required|email',
+            'usuario' => 'required',
             'senha' => 'required',
         ]);
 
@@ -50,14 +66,25 @@ class UsuarioController extends Controller
             return response()->json($validador->errors(), 412);
         }
 
-        $usuario = Usuario::where('email', $request->email)->first();
-
-        if (!$usuario || !Hash::check($request->senha, $usuario->senha)) {
-            return response('Credenciais inválidas', 401);
+        if ($this->cpfOuCnpj($request->usuario)) {
+            $tipoUsuario = 'admin';
+            ConfigAutenticacao::configurar($tipoUsuario);
+            $usuario = Admin::where('pfj', $request->usuario)->first();
+            if (!$usuario || !Hash::check($request->senha, $usuario->password)) {
+                return response('Credenciais admin inválidas', 401);
+            }
+        } else {
+            $tipoUsuario = 'usuario';
+            ConfigAutenticacao::configurar($tipoUsuario);
+            $usuario = Usuario::where('email', $request->usuario)->first();
+            if (!$usuario || !Hash::check($request->senha, $usuario->senha)) {
+                return response('Credenciais usuário inválidas', 401);
+            }
         }
 
         $payload = [
             'usuario' => $usuario,
+            'tipo' => $tipoUsuario,
         ];
 
         $token = JWTAuth::fromUser($usuario, $payload);

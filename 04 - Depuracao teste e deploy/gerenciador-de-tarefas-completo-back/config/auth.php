@@ -38,12 +38,12 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'usuarios',
+            'provider' => 'users',
         ],
 
         'api' => [
             'driver' => 'jwt',
-            'provider' => 'usuarios',
+            'provider' => 'users',
         ],
     ],
 
@@ -69,7 +69,7 @@ return [
         //     'driver' => 'eloquent',
         //     'model' => App\User::class,
         // ],
-        'usuarios' => [
+        'users' => [
             'driver' => 'eloquent',
             'model' => App\Usuario::class,
         ],

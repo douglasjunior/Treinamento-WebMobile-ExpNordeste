@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
  */
 
-Route::group(['middleware' => 'jwt.auth'], function () {
+Route::group(['middleware' => 'verificar.auth'], function () {
     Route::put('/tarefas/{tarefa}/ativa', 'TarefaController@ativar');
     Route::delete('/tarefas/{tarefa}/ativa', 'TarefaController@desativar');
     Route::get('/tarefas/count', 'TarefaController@count');
@@ -25,7 +25,7 @@ Route::group(['prefix' => 'usuarios'], function () {
     Route::post('/', 'UsuarioController@store');
     Route::post('/login', 'UsuarioController@login');
 
-    Route::group(['middleware' => 'jwt.auth'], function () {
+    Route::group(['middleware' => 'verificar.auth'], function () {
         Route::get('/', 'UsuarioController@user');
         Route::post('/logout', 'UsuarioController@logout');
     });
